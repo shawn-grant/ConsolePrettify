@@ -1,4 +1,20 @@
 /*
+    MIT License
+
+    Copyright (c) 2020 Shawn Grant
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+*/
+
+/*
   Programmer    : Shawn Grant
   Date Created  : 13, 09, 2020
   Purpose	    : To mimic GUI elements with text in a console environment
@@ -127,4 +143,108 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
     coord.Y += 3;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     printf("\n");
+}
+
+//DISPLAYS A TABLE FOR YOU
+/// EX. prettify_table(listOfHeadings, numRows, listOfNames, listOfAges);
+void prettify_table(char *headings, int rows, int COLOR, ...)
+{
+   va_list args;
+   va_start(args, COLOR);
+   int returnColor = CUR_COLOR;
+
+   prettify_textcolor(COLOR);
+
+   va_arg(args, int);
+
+   va_end(args);
+   prettify_textcolor(returnColor);
+}
+
+//DISPLAYS A MENU AND RETURNS THE NUMBER OF THE SELECTED OPTION
+/// EX. prettify_menu("Select an option", numOptions, RED, "Buy banana","Buy apple","Buy mango");
+int prettify_menu(char *title, int numOptions, int COLOR, ...)
+{
+    int i, j, result;
+    int returnColor = CUR_COLOR;
+    int maxLength = strlen(title);
+    va_list args;
+    COORD coord;//where to put the cursor
+    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+
+    va_start(args, COLOR);
+    prettify_textcolor(COLOR);
+
+    //find the longest text to be displayed
+    for (i = 0; i < numOptions; i++)
+    {
+        int len = strlen(va_arg(args, char *));
+        if(len > maxLength)
+            maxLength = len;
+    }
+
+    printf("\n  ");
+    for (i = 0; i < maxLength + 6; i++)
+        printf("_");
+
+    printf("\n | %s", title);
+    for (i = 0; i < maxLength - (strlen(title)- 5); i++)
+        printf(" ");
+
+    printf("|\n |");
+    for (i = 0; i < maxLength + 6; i++)
+        printf("-");
+    printf("|");
+
+    va_start(args, COLOR);
+    for (i = 0; i < numOptions; i++)
+    {
+        char *option = va_arg(args, char *);
+
+        printf("\n | %i) %s", i+1, option);
+        for (j = 0; j < maxLength - (strlen(option)-2); j++)
+            printf(" ");
+        printf("|");
+    }
+
+    printf("\n |");
+    for (i = 0; i < maxLength + 6; i++)
+        printf("_");
+    printf("|");
+
+    //text box
+    printf("\n | > ");
+    for (i = 0; i < maxLength + 3; i++)
+        printf(" ");
+
+    printf("|\n |");
+    for (i = 0; i < maxLength + 6; i++)
+        printf("_");
+    printf("|");
+
+    va_end(args);
+    prettify_textcolor(returnColor);
+
+    //put cursor inside box
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+    coord.X = cursor.dwCursorPosition.X - (maxLength + 4);
+    coord.Y = cursor.dwCursorPosition.Y - 1;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+    int c = scanf("%i", &result);
+
+    ///re-place the cursor outside the box
+    coord.X = 0;
+    coord.Y += 2;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+    //error checking
+    if(c == 1 && result <= numOptions && result > 0){
+        return result;
+    }
+    else{
+        //prettify_textcolor(RED);
+        printf("\n --> ERROR: INVALID OPTION\n Try again..");
+        return 0;
+    }
 }

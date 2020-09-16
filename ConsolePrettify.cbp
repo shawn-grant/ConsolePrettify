@@ -31,7 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="CYPHER.H" />
+		<Unit filename="ConsolePrettify.h" />
+		<Unit filename="GUI_Functions.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
 		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="prettify_functions.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

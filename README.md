@@ -1,8 +1,8 @@
 # ConsolePrettify
-A simple tool for making good UI in C console apps.
+A simple tool for making good UI in C/C++ console apps.
 
 ## How to Use
-Download or clone this repository. Copy `prettify_functions.c` and `ConsolePrettify.h` into your project folder and add `#include "ConsolePrettify.h"` in your C files.
+Download or clone this repository. Copy `prettify_functions.c` and `ConsolePrettify.h` into your project folder and add `#include "ConsolePrettify.h"` in your C/C++ files.
 
 Make sure the new files are correctly linked in your IDE/compiler.
 
@@ -14,7 +14,7 @@ Function | Description
 `prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
 `prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
 
-_**NOTE**: Please use `prettify_textcolor()` for all colored text in your program._.
+> _**NOTE**: Please use `prettify_textcolor()` for all colored text in your program._.
 
 ## Available Colors
 use any of these constants as the color arguments of prettify functions
@@ -35,6 +35,8 @@ DARK_GRAY | 8
 ___
 ## Examples
 
+Textboxes
+
 ```c
 int num;
 char password[25];
@@ -47,4 +49,4 @@ prettify_textbox_password(password, '+', BLUE);
 ```
 Output:
 
-![Output](images/output1.png)
+> ![Output](images/output1.png)
