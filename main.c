@@ -28,6 +28,8 @@ int main()
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes");
+    int items[10] = {200, 10, 80, 900, 209};
+    prettify_list_ordered("Example list", 5, YELLOW, items);
 
     return 0;
 }

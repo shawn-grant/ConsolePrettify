@@ -248,3 +248,16 @@ int prettify_menu(char *title, int numOptions, int COLOR, ...)
         return 0;
     }
 }
+
+//DISPLAYS AN ORDERED LIST
+/// EX. prettify_list_ordered("Select an option", 5, RED, items);
+void prettify_list_ordered(char *heading, int numItems, int COLOR, void *items)
+{
+    int i;
+    printf("\n %s\n", heading);
+
+    for(i = 0; i < numItems; i++)
+    {
+        printf("    %i> %s\n", i, *items[i]);
+    }
+}

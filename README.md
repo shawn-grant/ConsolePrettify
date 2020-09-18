@@ -1,7 +1,7 @@
-# ConsolePrettify
-A simple tool for making good UI in C/C++ console apps.
+# Console Prettify🎨 (alpha)
+A simple tool for making good UI in C/C++ console apps with little effort.
 
-## How to Use
+## How to Use 🖥️
 Download or clone this repository. Copy `prettify_functions.c` and `ConsolePrettify.h` into your project folder and add `#include "ConsolePrettify.h"` in your C/C++ files.
 
 Make sure the new files are correctly linked in your IDE/compiler.
@@ -10,13 +10,17 @@ Make sure the new files are correctly linked in your IDE/compiler.
 
 Function | Description
 --- | --- 
-`prettify_textcolor(color)` | Changes the text color
-`prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
-`prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
+`void prettify_textcolor(color)` | Changes the text color
+`void prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
+`void prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
+`int prettify_menu(title, numOptions, color, ...)` | Displays a menu and returns the number of the selected option
 
+---
 > _**NOTE**: Please use `prettify_textcolor()` for all colored text in your program._.
 
-## Available Colors
+<br>
+
+## Available Colors 🌈
 use any of these constants as the color arguments of prettify functions
 Color | Value
 --- | --- 
@@ -32,9 +36,9 @@ CYAN | 3
 GRAY | 7
 DARK_GRAY | 8
 
-___
-## Examples
+<br>
 
+# Examples
 Textboxes
 
 ```c
@@ -50,3 +54,18 @@ prettify_textbox_password(password, '+', BLUE);
 Output:
 
 > ![Output](images/output1.png)
+
+
+Menus
+```c
+int choice;
+choice = prettify_menu("Select an option", 4, RED,
+                  "Buy bananas",
+                  "Buy apple",
+                  "Buy mango",
+                  "Buy grapes");
+```
+
+## TODO
+- Add automatic Table printing
+- Add list printing
