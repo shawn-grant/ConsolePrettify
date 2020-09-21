@@ -24,6 +24,7 @@
 
 int CUR_COLOR = WHITE;
 
+// CHANGES TEXT COLOR
 void prettify_textcolor(int COLOR){
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), COLOR);
     CUR_COLOR = COLOR;
@@ -79,6 +80,7 @@ void prettify_textbox(char specifier[], void *var, int COLOR)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     printf("\n");
 }
+
 
 /// CREATE A NON CENTERED INPUT FIELD FOR PASSWORDS OR SECRET CODES
 /// EX. prettify_textbox_password(password, '*', BLUE);
@@ -145,6 +147,7 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
     printf("\n");
 }
 
+
 //DISPLAYS A TABLE FOR YOU
 /// EX. prettify_table(listOfHeadings, numRows, listOfNames, listOfAges);
 void prettify_table(char *headings, int rows, int COLOR, ...)
@@ -160,6 +163,7 @@ void prettify_table(char *headings, int rows, int COLOR, ...)
    va_end(args);
    prettify_textcolor(returnColor);
 }
+
 
 //DISPLAYS A MENU AND RETURNS THE NUMBER OF THE SELECTED OPTION
 /// EX. prettify_menu("Select an option", numOptions, RED, "Buy banana","Buy apple","Buy mango");
@@ -249,6 +253,7 @@ int prettify_menu(char *title, int numOptions, int COLOR, ...)
     }
 }
 
+
 //DISPLAYS AN ORDERED LIST
 /// EX. prettify_list_ordered("Select an option", 5, RED, items);
 void prettify_list_ordered(char *heading, int numItems, int COLOR, void *items)
@@ -258,6 +263,6 @@ void prettify_list_ordered(char *heading, int numItems, int COLOR, void *items)
 
     for(i = 0; i < numItems; i++)
     {
-        printf("    %i> %s\n", i, *items[i]);
+        //printf("    %i> %s\n", i, *items[i]);
     }
 }

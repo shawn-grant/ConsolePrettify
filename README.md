@@ -22,7 +22,7 @@ Function | Description
 
 ## Available Colors 🌈
 use any of these constants as the color arguments of prettify functions
-Color | Value
+Constant Name | Value
 --- | --- 
 RED | 12
 GREEN |  10
@@ -39,7 +39,7 @@ DARK_GRAY | 8
 <br>
 
 # Examples
-Textboxes
+### Textboxes:
 
 ```c
 int num;
@@ -51,20 +51,22 @@ prettify_textbox("%i", &num, YELLOW);
 printf("\nTHIS IS A PASSWORD TEXTBOX");
 prettify_textbox_password(password, '+', BLUE);
 ```
-Output:
+> Output:
+<br>
+![Output](images/output1.png)
 
-> ![Output](images/output1.png)
 
-
-Menus
+### Menus
 ```c
-int choice;
-choice = prettify_menu("Select an option", 4, RED,
+int choice = prettify_menu("Select an option", 4, RED,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes");
 ```
+> Output:
+<br>
+![Output](images/output2.png)
 
 ## TODO
 - Add automatic Table printing
