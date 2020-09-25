@@ -65,6 +65,6 @@ void prettify_table(char *, int, int, ...);
 int prettify_menu(char *, int, int, ...);
 
 //lists
-void prettify_list_ordered(char *, int, int, void *);
+void prettify_list_ordered(char *, int, int []);
 
 #endif // CONSOLEPRETTIFY_H_INCLUDED

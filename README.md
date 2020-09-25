@@ -13,7 +13,9 @@ Function | Description
 `void prettify_textcolor(color)` | Changes the text color
 `void prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
 `void prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
-`int prettify_menu(title, numOptions, color, ...)` | Displays a menu and returns the number of the selected option
+`int prettify_menu(title, color, numOptions, ...)` | Displays a menu and returns the number of the selected option
+`void prettify_list_ordered(title, color, items)` | Displays an ordered list of items
+
 
 ---
 > _**NOTE**: Please use `prettify_textcolor()` for all colored text in your program._.
@@ -58,7 +60,7 @@ prettify_textbox_password(password, '+', BLUE);
 
 ### Menus
 ```c
-int choice = prettify_menu("Select an option", 4, RED,
+int choice = prettify_menu("Select an option", RED, 4,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
@@ -70,4 +72,4 @@ int choice = prettify_menu("Select an option", 4, RED,
 
 ## TODO
 - Add automatic Table printing
-- Add list printing
+- Print to center

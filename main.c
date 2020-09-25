@@ -13,6 +13,7 @@ int main()
     int num, choice;
     char pass[25];
 
+    /*
     printf("THIS IS A PRETTIFY TEXTBOX");
     prettify_textbox("%i", &num, YELLOW);
     printf("You Entered: %i", num);
@@ -21,13 +22,24 @@ int main()
     prettify_textbox_password(pass, '+', BLUE);
     printf("You Entered: %s", pass);
 
-    choice = prettify_menu("Select an option", 4, RED,
+
+    choice = prettify_menu("Select an option", RED, 4,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes");
-    int items[10] = {200, 10, 80, 900, 209};
-    //prettify_list_ordered("Example list", 5, YELLOW, items);
+    */
+
+    if(prettify_menu("Select an option", RED, 4,
+                  "Buy bananas",
+                  "Buy apple",
+                  "Buy mango",
+                  "Buy grapes") == 3)
+                  printf("Help\n");
+
+
+    int items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
+    prettify_list_ordered("List of numbers", YELLOW, items);
 
     return 0;
 }

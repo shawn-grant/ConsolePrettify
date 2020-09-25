@@ -167,7 +167,7 @@ void prettify_table(char *headings, int rows, int COLOR, ...)
 
 //DISPLAYS A MENU AND RETURNS THE NUMBER OF THE SELECTED OPTION
 /// EX. prettify_menu("Select an option", numOptions, RED, "Buy banana","Buy apple","Buy mango");
-int prettify_menu(char *title, int numOptions, int COLOR, ...)
+int prettify_menu(char *title, int COLOR, int numOptions, ...)
 {
     int i, j, result;
     int returnColor = CUR_COLOR;
@@ -176,7 +176,7 @@ int prettify_menu(char *title, int numOptions, int COLOR, ...)
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
 
-    va_start(args, COLOR);
+    va_start(args, numOptions);
     prettify_textcolor(COLOR);
 
     //find the longest text to be displayed
@@ -200,7 +200,7 @@ int prettify_menu(char *title, int numOptions, int COLOR, ...)
         printf("-");
     printf("|");
 
-    va_start(args, COLOR);
+    va_start(args, numOptions);
     for (i = 0; i < numOptions; i++)
     {
         char *option = va_arg(args, char *);
@@ -255,14 +255,38 @@ int prettify_menu(char *title, int numOptions, int COLOR, ...)
 
 
 //DISPLAYS AN ORDERED LIST
-/// EX. prettify_list_ordered("Select an option", 5, RED, items);
-void prettify_list_ordered(char *heading, int numItems, int COLOR, void *items)
+/// EX. prettify_list_ordered("Select an option", RED, items);
+void prettify_list_ordered(char *heading, int COLOR, int items[])
 {
-    int i;
-    printf("\n %s\n", heading);
+    int i, j, numDigits, curNumDigits, numItems = 0;
+    int returnColor = CUR_COLOR;
+
+    prettify_textcolor(COLOR);
+
+    //get number of items
+    while(items[numItems] != NULL)
+        numItems++;
+
+    numDigits = (numItems == 0) ? 1  : (log10(numItems) + 1);
+
+    printf("\n\n  %s\n", heading);
+    //printf("  ________________________\n");
 
     for(i = 0; i < numItems; i++)
     {
-        //printf("    %i> %s\n", i, *items[i]);
+        curNumDigits = (i+1 == 0) ? 1  : (log10(i+1) + 1);
+        printf("   %i", i+1);
+
+        for(j = 0; j < numDigits-curNumDigits; j++)
+            printf(" ");
+
+        printf("- %i\n", items[i]);
     }
+
+    prettify_textcolor(returnColor);
+}
+
+void prettify_profile_icon()
+{
+
 }
