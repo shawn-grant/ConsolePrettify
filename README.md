@@ -55,6 +55,7 @@ prettify_textbox_password(password, '+', BLUE);
 ```
 > Output:
 <br>
+
 ![Output](images/output1.PNG)
 
 
