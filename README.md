@@ -68,7 +68,7 @@ int choice = prettify_menu("Select an option", RED, 4,
 ```
 > Output:
 <br>
-![Output](images/output2.PNG)
+> ![Output](images/output2.PNG)
 
 
 ### Lists
