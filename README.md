@@ -54,6 +54,7 @@ printf("\nTHIS IS A PASSWORD TEXTBOX");
 prettify_textbox_password(password, '+', BLUE);
 ```
 > Output:
+
 > ![Output](images/output1.PNG)
 
 
