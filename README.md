@@ -53,9 +53,9 @@ prettify_textbox("%i", &num, YELLOW);
 printf("\nTHIS IS A PASSWORD TEXTBOX");
 prettify_textbox_password(password, '+', BLUE);
 ```
-> Output:
+**Output:**
 
-> ![Output](images/output1.PNG)
+![Output](images/output1.PNG)
 
 
 ### Menus
@@ -66,8 +66,8 @@ int choice = prettify_menu("Select an option", RED, 4,
                   "Buy mango",
                   "Buy grapes");
 ```
-> Output:
-<br>
+**Output:**
+
 ![Output](images/output2.PNG)
 
 
@@ -76,8 +76,8 @@ int choice = prettify_menu("Select an option", RED, 4,
 char **people = {"Justin", "Kim", "Susan"};
 prettify_list_ordered("List of People", GREEN, people);
 ```
-> Output:
-<br>
+**Output:**
+
 ![Output](images/output3.PNG)
 
 ## TODO
