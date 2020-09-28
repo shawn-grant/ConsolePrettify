@@ -55,7 +55,7 @@ prettify_textbox_password(password, '+', BLUE);
 ```
 > Output:
 <br>
-![Output](images/output1.png)
+![Output](images/output1.PNG)
 
 
 ### Menus
@@ -68,7 +68,17 @@ int choice = prettify_menu("Select an option", RED, 4,
 ```
 > Output:
 <br>
-![Output](images/output2.png)
+![Output](images/output2.PNG)
+
+
+### Lists
+```c
+char **people = {"Justin", "Kim", "Susan"};
+prettify_list_ordered("List of People", GREEN, people);
+```
+> Output:
+<br>
+![Output](images/output3.PNG)
 
 ## TODO
 - Add automatic Table printing

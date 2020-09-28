@@ -30,6 +30,8 @@ int main()
                   "Buy grapes");
     */
 
+    prettify_print("HELLO", RED);
+
     if(prettify_menu("Select an option", RED, 4,
                   "Buy bananas",
                   "Buy apple",

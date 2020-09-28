@@ -55,8 +55,7 @@ void prettify_textbox_password_centered(char [], void *, int);
 void prettify_textbox_large_centered(char [], void *, int);
 
 //text
-void prettify_print_centered_A(char[]);
-void prettify_print_centered_B(char[], int);
+void prettify_print(char[], int);
 
 //table
 void prettify_table(char *, int, int, ...);

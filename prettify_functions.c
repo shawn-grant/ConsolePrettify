@@ -290,3 +290,25 @@ void prettify_profile_icon()
 {
 
 }
+
+void prettify_print(char str[], int COLOR)
+{
+    COORD centerPos;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    int screenWwidth;
+    int returnColor = CUR_COLOR;
+
+    prettify_textcolor(COLOR);
+
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    screenWwidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+
+    /// cursor to center
+    centerPos.X = (screenWwidth - strlen(str)) / 2;
+    centerPos.Y = csbi.dwCursorPosition.Y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), centerPos);
+    /// print
+    printf(str);
+
+    prettify_textcolor(returnColor);
+}
