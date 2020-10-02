@@ -1,6 +1,8 @@
 # Console Prettify🎨 (alpha)
 A simple tool for making good UI in C/C++ console apps with little effort.
 
+---
+
 ## How to Use 🖥️
 Download or clone this repository. Copy `prettify_functions.c` and `ConsolePrettify.h` into your project folder and add `#include "ConsolePrettify.h"` in your C/C++ files.
 
@@ -11,6 +13,7 @@ Make sure the new files are correctly linked in your IDE/compiler.
 Function | Description
 --- | --- 
 `void prettify_textcolor(color)` | Changes the text color
+`void prettify_print(text, color)` | Prints text at the screen center
 `void prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
 `void prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
 `int prettify_menu(title, color, numOptions, ...)` | Displays a menu and returns the number of the selected option
@@ -41,7 +44,7 @@ DARK_GRAY | 8
 <br>
 
 # Examples
-### Textboxes:
+## Textboxes:
 
 ```c
 int num;
@@ -53,12 +56,10 @@ prettify_textbox("%i", &num, YELLOW);
 printf("\nTHIS IS A PASSWORD TEXTBOX");
 prettify_textbox_password(password, '+', BLUE);
 ```
-**Output:**
-
-![Output](images/output1.PNG)
+>![Output](images/output1.PNG)
 
 
-### Menus
+## Menus
 ```c
 int choice = prettify_menu("Select an option", RED, 4,
                   "Buy bananas",
@@ -66,9 +67,7 @@ int choice = prettify_menu("Select an option", RED, 4,
                   "Buy mango",
                   "Buy grapes");
 ```
-**Output:**
-
-![Output](images/output2.PNG)
+>![Output](images/output2.PNG)
 
 
 ### Lists
@@ -76,10 +75,12 @@ int choice = prettify_menu("Select an option", RED, 4,
 char **people = {"Justin", "Kim", "Susan"};
 prettify_list_ordered("List of People", GREEN, people);
 ```
-**Output:**
-
-![Output](images/output3.PNG)
+>![Output](images/output3.PNG)
 
 ## TODO
 - Add automatic Table printing
 - Print to center
+
+## License
+---
+ConsolePrettify is MIT licensed.

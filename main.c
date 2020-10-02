@@ -30,18 +30,22 @@ int main()
                   "Buy grapes");
     */
 
-    prettify_print("HELLO", RED);
+    prettify_print("HELLO\n ui", RED);
 
-    if(prettify_menu("Select an option", RED, 4,
+    /*if(prettify_menu("Select an option", RED, 4,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes") == 3)
                   printf("Help\n");
+    */
 
 
-    int items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
-    prettify_list_ordered("List of numbers", YELLOW, items);
+    float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
+    prettify_list_ordered("List of numbers", YELLOW, "%f", items);
+
+    char people[20][20] = {"Justin", "Kim", "Susan"};
+    prettify_list_ordered("List of People", GREEN, "%s", people);
 
     return 0;
 }

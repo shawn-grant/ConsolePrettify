@@ -30,6 +30,7 @@
 #include <ctype.h>
 #include <windows.h>
 #include <stdarg.h>
+#include <math.h>
 
 /// COLORS
 #define RED 12
@@ -64,6 +65,6 @@ void prettify_table(char *, int, int, ...);
 int prettify_menu(char *, int, int, ...);
 
 //lists
-void prettify_list_ordered(char *, int, int []);
+void prettify_list_ordered(char *, int, char *, void **);
 
 #endif // CONSOLEPRETTIFY_H_INCLUDED

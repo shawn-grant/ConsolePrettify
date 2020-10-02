@@ -166,7 +166,7 @@ void prettify_table(char *headings, int rows, int COLOR, ...)
 
 
 //DISPLAYS A MENU AND RETURNS THE NUMBER OF THE SELECTED OPTION
-/// EX. prettify_menu("Select an option", numOptions, RED, "Buy banana","Buy apple","Buy mango");
+/// EX. prettify_menu("Select an option", RED, numOptions, "Buy banana","Buy apple","Buy mango");
 int prettify_menu(char *title, int COLOR, int numOptions, ...)
 {
     int i, j, result;
@@ -256,7 +256,7 @@ int prettify_menu(char *title, int COLOR, int numOptions, ...)
 
 //DISPLAYS AN ORDERED LIST
 /// EX. prettify_list_ordered("Select an option", RED, items);
-void prettify_list_ordered(char *heading, int COLOR, int items[])
+void prettify_list_ordered(char *heading, int COLOR, char *specifier, void  **items)
 {
     int i, j, numDigits, curNumDigits, numItems = 0;
     int returnColor = CUR_COLOR;
@@ -267,10 +267,12 @@ void prettify_list_ordered(char *heading, int COLOR, int items[])
     while(items[numItems] != NULL)
         numItems++;
 
+    printf("%i", numItems);
+
     numDigits = (numItems == 0) ? 1  : (log10(numItems) + 1);
 
     printf("\n\n  %s\n", heading);
-    //printf("  ________________________\n");
+    printf("  ________________________\n");
 
     for(i = 0; i < numItems; i++)
     {
@@ -280,16 +282,15 @@ void prettify_list_ordered(char *heading, int COLOR, int items[])
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("- %i\n", items[i]);
+        if(strcmp(specifier, "%i") == 0)
+            printf("| %i\n", items[i]);
+        else if(strcmp(specifier, "%f") == 0)
+            printf("| %f\n", items[i]);
     }
 
     prettify_textcolor(returnColor);
 }
 
-void prettify_profile_icon()
-{
-
-}
 
 void prettify_print(char str[], int COLOR)
 {
