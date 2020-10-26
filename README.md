@@ -1,5 +1,5 @@
 # Console Prettify🎨 (alpha)
-A simple tool for making good UI in C/C++ console apps with little effort.
+A simple tool for making good UI in C/C++ console applications on Windows with little effort.
 
 ---
 
@@ -17,8 +17,10 @@ Function | Description
 `void prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
 `void prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
 `int prettify_menu(title, color, numOptions, ...)` | Displays a menu and returns the number of the selected option
-`void prettify_list_ordered(title, color, items)` | Displays an ordered list of items
-
+`void prettify_olist_i(title, color, items)` | Displays an ordered list of integers
+`void prettify_olist_f(title, color, items)` | Displays an ordered list of floats
+`void prettify_olist_c(title, color, items)` | Displays an ordered list of characters
+`void prettify_olist_s(title, color, items)` | Displays an ordered list of strings
 
 ---
 > _**NOTE**: Please use `prettify_textcolor()` for all colored text in your program._.

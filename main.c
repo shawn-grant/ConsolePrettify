@@ -41,11 +41,11 @@ int main()
     */
 
 
-    float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
-    prettify_list_ordered("List of numbers", YELLOW, "%f", items);
+    float items[20] = {20.890, 10.8, 80, 900, 20, 10, 80, 900, 209, 50};
+    prettify_olist_f("List of numbers", YELLOW, items);
 
-    char people[20][20] = {"Justin", "Kim", "Susan"};
-    prettify_list_ordered("List of People", GREEN, "%s", people);
+    //char people[20][20] = {"Justin", "Kim", "Susan"};
+    //prettify_list_ordered("List of People", GREEN, "%s", people);
 
     return 0;
 }

@@ -59,12 +59,16 @@ void prettify_textbox_large_centered(char [], void *, int);
 void prettify_print(char[], int);
 
 //table
-void prettify_table(char *, int, int, ...);
+void prettify_table(char **, int, int, ...);
 
 //menu
 int prettify_menu(char *, int, int, ...);
 
-//lists
-void prettify_list_ordered(char *, int, char *, void **);
+//ordered lists
+void prettify_olist_i(char *, int, int[]);
+void prettify_olist_f(char *, int, float[]);
+void prettify_olist_d(char *, int, double[]);
+void prettify_olist_c(char *, int, char[]);
+void prettify_olist_s(char *, int, char**);
 
 #endif // CONSOLEPRETTIFY_H_INCLUDED

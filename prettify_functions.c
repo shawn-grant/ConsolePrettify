@@ -38,7 +38,7 @@ void prettify_textbox(char specifier[], void *var, int COLOR)
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
     int returnColor = CUR_COLOR;
 
-    if(COLOR != NULL)
+    if(&COLOR != NULL)
         prettify_textcolor(COLOR);
 
     printf("\n");
@@ -150,7 +150,7 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
 
 //DISPLAYS A TABLE FOR YOU
 /// EX. prettify_table(listOfHeadings, numRows, listOfNames, listOfAges);
-void prettify_table(char *headings, int rows, int COLOR, ...)
+void prettify_table(char **headings, int rows, int COLOR, ...)
 {
    va_list args;
    va_start(args, COLOR);
@@ -255,8 +255,8 @@ int prettify_menu(char *title, int COLOR, int numOptions, ...)
 
 
 //DISPLAYS AN ORDERED LIST
-/// EX. prettify_list_ordered("Select an option", RED, items);
-void prettify_list_ordered(char *heading, int COLOR, char *specifier, void  **items)
+/// EX. prettify_olist_i"Select an option", RED, items);
+void prettify_olist_i(char *heading, int COLOR, int items[])
 {
     int i, j, numDigits, curNumDigits, numItems = 0;
     int returnColor = CUR_COLOR;
@@ -266,6 +266,39 @@ void prettify_list_ordered(char *heading, int COLOR, char *specifier, void  **it
     //get number of items
     while(items[numItems] != NULL)
         numItems++;
+
+    numDigits = (numItems == 0) ? 1  : (log10(numItems) + 1);
+
+    printf("\n\n  %s\n", heading);
+    printf("  ________________________\n");
+
+    for(i = 0; i < numItems; i++)
+    {
+        curNumDigits = (i+1 == 0) ? 1  : (log10(i+1) + 1);
+        printf("   %i", i+1);
+
+        for(j = 0; j < numDigits-curNumDigits; j++)
+            printf(" ");
+
+        printf("| %i\n", items[i]);
+    }
+
+    prettify_textcolor(returnColor);
+}
+//DISPLAYS AN ORDERED LIST
+/// EX. prettify_olist_f"Select an option", RED, items);
+void prettify_olist_f(char *heading, int COLOR, float items[])
+{
+    int i, j, numDigits, curNumDigits, numItems = 0;
+    int returnColor = CUR_COLOR;
+
+    prettify_textcolor(COLOR);
+
+    //get number of items
+    //while(items[numItems] != NULL)
+    //    numItems++;
+
+    numItems = sizeof(items)/sizeof(items[0]);
 
     printf("%i", numItems);
 
@@ -282,15 +315,11 @@ void prettify_list_ordered(char *heading, int COLOR, char *specifier, void  **it
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        if(strcmp(specifier, "%i") == 0)
-            printf("| %i\n", items[i]);
-        else if(strcmp(specifier, "%f") == 0)
-            printf("| %f\n", items[i]);
+        printf("| %.2f\n", items[i]);
     }
 
     prettify_textcolor(returnColor);
 }
-
 
 void prettify_print(char str[], int COLOR)
 {
