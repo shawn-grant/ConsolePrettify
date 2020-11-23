@@ -263,72 +263,183 @@ void prettify_olist_i(char *heading, int COLOR, int items[])
 
     prettify_textcolor(COLOR);
 
-    //get number of items
+    //get number of items (only works for ints)
     while(items[numItems] != NULL)
         numItems++;
 
+    //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
+    //Eg. If numItems = 200 then numDigits = 3
     numDigits = (numItems == 0) ? 1  : (log10(numItems) + 1);
 
     printf("\n\n  %s\n", heading);
     printf("  ________________________\n");
 
+    // PRINTING EACH ELEMENT
     for(i = 0; i < numItems; i++)
     {
+        // GET NUMBER OF DIGITS IN THE CURRENT ITEM's NUMBER
+        // Eg. for the 20th element, curNumDigits will be 2
+        // for he 1000th element, curNumDigits will be 4
         curNumDigits = (i+1 == 0) ? 1  : (log10(i+1) + 1);
         printf("   %i", i+1);
 
+        //Add spaces to ensure the positions align
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("| %i\n", items[i]);
+        printf("%s %i\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
+        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
     }
 
     prettify_textcolor(returnColor);
 }
-//DISPLAYS AN ORDERED LIST
-/// EX. prettify_olist_f"Select an option", RED, items);
-void prettify_olist_f(char *heading, int COLOR, float items[])
+/// EX. prettify_olist_f("Select an option", RED, items, 3);
+void prettify_olist_f(char *heading, int COLOR, float items[], int numItems)
 {
-    int i, j, numDigits, curNumDigits, numItems = 0;
+    int i, j, numDigits, curNumDigits;
     int returnColor = CUR_COLOR;
 
     prettify_textcolor(COLOR);
 
-    //get number of items
-    //while(items[numItems] != NULL)
-    //    numItems++;
-
-    numItems = sizeof(items)/sizeof(items[0]);
-
-    printf("%i", numItems);
-
-    numDigits = (numItems == 0) ? 1  : (log10(numItems) + 1);
+    //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
+    //Eg. If numItems = 200 then numDigits = 3
+    numDigits = (numItems == 0) ? 1  : (log10 (numItems) + 1);
 
     printf("\n\n  %s\n", heading);
     printf("  ________________________\n");
 
-    for(i = 0; i < numItems; i++)
+    // PRINTING EACH ELEMENT
+    for (i = 0; i < numItems; i++)
     {
-        curNumDigits = (i+1 == 0) ? 1  : (log10(i+1) + 1);
-        printf("   %i", i+1);
+        // GET NUMBER OF DIGITS IN THE CURRENT ITEM's NUMBER
+        // Eg. for the 20th element, curNumDigits will be 2
+        // for he 1000th element, curNumDigits will be 4
+        curNumDigits = (i+1 == 0) ? 1  : (log10 (i+1) + 1);
+        printf("   %i", i+1); // print the order in the list
 
+        //Add spaces to ensure the positions align
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("| %.2f\n", items[i]);
+        printf("%s %.2f", OLIST_SEPARATOR, items[i]); //print the current element of the list
+        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
     }
 
-    prettify_textcolor(returnColor);
+    prettify_textcolor(returnColor); //return to original color
+}
+/// EX. prettify_olist_d("Select an option", RED, items, 3);
+void prettify_olist_d(char *heading, int COLOR, double items[], int numItems)
+{
+    int i, j, numDigits, curNumDigits;
+    int returnColor = CUR_COLOR;
+
+    prettify_textcolor(COLOR);
+
+    //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
+    //Eg. If numItems = 200 then numDigits = 3
+    numDigits = (numItems == 0) ? 1  : (log10 (numItems) + 1);
+
+    printf("\n\n  %s\n", heading);
+    printf("  ________________________\n");
+
+    // PRINTING EACH ELEMENT
+    for (i = 0; i < numItems; i++)
+    {
+        // GET NUMBER OF DIGITS IN THE CURRENT ITEM's NUMBER
+        // Eg. for the 20th element, curNumDigits will be 2
+        // for he 1000th element, curNumDigits will be 4
+        curNumDigits = (i+1 == 0) ? 1  : (log10 (i+1) + 1);
+        printf("   %i", i+1); // print the order in the list
+
+        //Add spaces to ensure the positions align
+        for(j = 0; j < numDigits-curNumDigits; j++)
+            printf(" ");
+
+        printf("%s %lf\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
+        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+    }
+
+    prettify_textcolor(returnColor); //return to original color
+}
+/// EX. prettify_olist_c("Select an option", RED, items, 3);
+void prettify_olist_c(char *heading, int COLOR, char items[], int numItems)
+{
+    int i, j, numDigits, curNumDigits;
+    int returnColor = CUR_COLOR;
+
+    prettify_textcolor(COLOR);
+
+    //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
+    //Eg. If numItems = 200 then numDigits = 3
+    numDigits = (numItems == 0) ? 1  : (log10 (numItems) + 1);
+
+    printf("\n\n  %s\n", heading);
+    printf("  ________________________\n");
+
+    // PRINTING EACH ELEMENT
+    for (i = 0; i < numItems; i++)
+    {
+        // GET NUMBER OF DIGITS IN THE CURRENT ITEM's NUMBER
+        // Eg. for the 20th element, curNumDigits will be 2
+        // for he 1000th element, curNumDigits will be 4
+        curNumDigits = (i+1 == 0) ? 1  : (log10 (i+1) + 1);
+        printf("   %i", i+1); // print the order in the list
+
+        //Add spaces to ensure the positions align
+        for(j = 0; j < numDigits-curNumDigits; j++)
+            printf(" ");
+
+        printf("%s %c\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
+        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+    }
+
+    prettify_textcolor(returnColor); //return to original color
+}
+/// EX. prettify_olist_s("Select an option", RED, items, 3);
+void prettify_olist_s(char *heading, int COLOR, char items[][MAX_ARRAY_LENGTH], int numItems)
+{
+    int i, j, numDigits, curNumDigits;
+    int returnColor = CUR_COLOR;
+
+    prettify_textcolor(COLOR);
+
+    //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
+    //Eg. If numItems = 200 then numDigits = 3
+    numDigits = (numItems == 0) ? 1  : (log10 (numItems) + 1);
+
+    printf("\n\n  %s\n", heading);
+    printf("  ________________________\n");
+
+    // PRINTING EACH ELEMENT
+    for (i = 0; i < numItems; i++)
+    {
+        // GET NUMBER OF DIGITS IN THE CURRENT ITEM's NUMBER
+        // Eg. for the 20th element, curNumDigits will be 2
+        // for he 1000th element, curNumDigits will be 4
+        curNumDigits = (i+1 == 0) ? 1  : (log10 (i+1) + 1);
+        printf("   %i", i+1); // print the order in the list
+
+        //Add spaces to ensure the positions align
+        for(j = 0; j < numDigits-curNumDigits; j++)
+            printf(" ");
+
+        printf("%s %s\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
+        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+    }
+
+    prettify_textcolor(returnColor); //return to original color
 }
 
+
+// PRINT TEXT AT CENTER OF SCREEN
 void prettify_print(char str[], int COLOR)
 {
     COORD centerPos;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    CONSOLE_SCREEN_BUFFER_INFO csbi; //contains information about the screen
     int screenWwidth;
     int returnColor = CUR_COLOR;
 
-    prettify_textcolor(COLOR);
+    prettify_textcolor(COLOR); //change the output color
 
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     screenWwidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
@@ -340,5 +451,5 @@ void prettify_print(char str[], int COLOR)
     /// print
     printf(str);
 
-    prettify_textcolor(returnColor);
+    prettify_textcolor(returnColor);//return to original color
 }

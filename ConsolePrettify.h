@@ -15,7 +15,7 @@
 */
 
 /*
-  Programmer  : Shawn Grant
+  Programmer    : Shawn Grant
   Date		    : 28,1, 2019
   Purpose	    : Contains any structs used in the program and function prototypes
 */
@@ -33,6 +33,7 @@
 #include <math.h>
 
 /// COLORS
+///DO NOT CHANGE THESE
 #define RED 12
 #define GREEN 10
 #define LIGHT_BLUE 11
@@ -44,6 +45,11 @@
 #define CYAN 3
 #define GRAY 7
 #define DARK_GRAY 8
+
+/// GLOBAL VARS
+#define MAX_ARRAY_LENGTH 50
+#define OLIST_SEPARATOR " )"
+#define ULIST_BULLET "*"
 
 //input
 void prettify_textcolor(int);
@@ -66,9 +72,9 @@ int prettify_menu(char *, int, int, ...);
 
 //ordered lists
 void prettify_olist_i(char *, int, int[]);
-void prettify_olist_f(char *, int, float[]);
-void prettify_olist_d(char *, int, double[]);
-void prettify_olist_c(char *, int, char[]);
-void prettify_olist_s(char *, int, char**);
+void prettify_olist_f(char *, int, float[], int);
+void prettify_olist_d(char *, int, double[], int);
+void prettify_olist_c(char *, int, char[], int);
+void prettify_olist_s(char *, int, char[][MAX_ARRAY_LENGTH], int);
 
 #endif // CONSOLEPRETTIFY_H_INCLUDED
