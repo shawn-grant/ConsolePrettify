@@ -24,6 +24,12 @@
 
 int CUR_COLOR = WHITE;
 
+void error(char function[25], char msg[100])
+{
+    printf ("\n!!!!ERROR: In function '%s' !!!!\n %s\n", function, msg);
+    exit(EXIT_FAILURE);
+}
+
 // CHANGES TEXT COLOR
 void prettify_textcolor(int COLOR){
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), COLOR);
@@ -146,24 +152,6 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     printf("\n");
 }
-
-
-//DISPLAYS A TABLE FOR YOU
-/// EX. prettify_table(listOfHeadings, numRows, listOfNames, listOfAges);
-void prettify_table(char **headings, int rows, int COLOR, ...)
-{
-   va_list args;
-   va_start(args, COLOR);
-   int returnColor = CUR_COLOR;
-
-   prettify_textcolor(COLOR);
-
-   va_arg(args, int);
-
-   va_end(args);
-   prettify_textcolor(returnColor);
-}
-
 
 //DISPLAYS A MENU AND RETURNS THE NUMBER OF THE SELECTED OPTION
 /// EX. prettify_menu("Select an option", RED, numOptions, "Buy banana","Buy apple","Buy mango");
@@ -321,7 +309,7 @@ void prettify_olist_f(char *heading, int COLOR, float items[], int numItems)
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("%s %.2f", OLIST_SEPARATOR, items[i]); //print the current element of the list
+        printf("%s %.2f\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
         //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
     }
 
@@ -430,8 +418,15 @@ void prettify_olist_s(char *heading, int COLOR, char items[][MAX_ARRAY_LENGTH], 
     prettify_textcolor(returnColor); //return to original color
 }
 
+/// PRINTS A TABLE
+void prettify_table(char *heading, int COLOR, ...)
+{
+    int i = 6;
+    if (i == 6)
+        error("prettify_table", "I is 6");
+}
 
-// PRINT TEXT AT CENTER OF SCREEN
+/// PRINT TEXT AT CENTER OF SCREEN
 void prettify_print(char str[], int COLOR)
 {
     COORD centerPos;

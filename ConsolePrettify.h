@@ -48,8 +48,14 @@
 
 /// GLOBAL VARS
 #define MAX_ARRAY_LENGTH 50
-#define OLIST_SEPARATOR " )"
-#define ULIST_BULLET "*"
+#define OLIST_SEPARATOR " )" //displayed between the item number and the item eg. 32 ) Bread
+#define ULIST_BULLET "*" // bullet point displayed before each item in the list eg. * item 1, * item 2
+
+typedef struct {
+    char heading[25];
+    void * items;
+    char dataType;
+}TableColumn;
 
 //input
 void prettify_textcolor(int);
@@ -65,7 +71,7 @@ void prettify_textbox_large_centered(char [], void *, int);
 void prettify_print(char[], int);
 
 //table
-void prettify_table(char **, int, int, ...);
+void prettify_table(char *, int, ...);
 
 //menu
 int prettify_menu(char *, int, int, ...);

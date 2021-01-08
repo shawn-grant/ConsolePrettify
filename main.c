@@ -41,14 +41,16 @@ int main()
     */
 
 
-    double items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
-    prettify_olist_d("List of numbers", YELLOW, items, 10);
+    float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
+    prettify_olist_f("List of numbers", YELLOW, items, 10);
 
     char chars[5] = "HELLO";
     prettify_olist_c("List of Chars", BLUE, chars, 5);
 
     char people[20][20] = {"Justin", "Kim", "Susan"};
     prettify_olist_s("List of People", GREEN, people, 3);
+
+    prettify_table("Table", GREEN);
 
     return 0;
 }
