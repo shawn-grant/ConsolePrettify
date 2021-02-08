@@ -64,18 +64,18 @@ cp_textbox ("%s", testString);
 printf ("\n Enter your password:");
 cp_password (testString);
 ```
->![Output](images/output1.gif)
+![Output](images/output1.gif)
 
 
 ## Menus
 ```c
-int choice = prettify_menu("Select an option", 4,
+int choice = cp_menu("Select an option", 4,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes");
 ```
->![Output](images/output2.gif)
+![Output](images/output2.gif)
 
 
 ### Lists

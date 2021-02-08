@@ -11,7 +11,6 @@
 
 int main()
 {
-    int choice;
     char testString[25];
 
     cp_textcolor (GREEN); //change color
@@ -25,8 +24,15 @@ int main()
 
     system("cls");
 
+    /////////////////////////////////
+    int choice = cp_menu("Select an option", 4,
+                  "Buy bananas",
+                  "Buy apple",
+                  "Buy mango",
+                  "Buy grapes");
+
     ////////////////////////////////
-    float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
+    /*float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
     cp_flist("List of numbers", items, 10);
 
     char chars[5] = "HELLO";
@@ -35,7 +41,7 @@ int main()
     char people[20][20] = {"Justin", "Kim", "Susan"};
     cp_slist("List of People", people, 3);
 
-    cp_table("Table");
+    cp_table("Table");*/
 
     return 0;
 }
