@@ -22,64 +22,57 @@
 
 #include "ConsolePrettify.h"
 
-int CUR_COLOR = WHITE;
-
 void error(char function[25], char msg[100])
 {
     printf ("\n!!!!ERROR: In function '%s' !!!!\n %s\n", function, msg);
     exit(EXIT_FAILURE);
 }
 
+void cp_setCentered(int isCentered)
+{
+
+}
+
 // CHANGES TEXT COLOR
-void prettify_textcolor(int COLOR){
+void cp_textcolor(int COLOR){
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), COLOR);
-    CUR_COLOR = COLOR;
 }
 
 /// CREATE A NON CENTERED INPUT FIELD
-/// EX. prettify_textbox("%s", &myvariable, BLUE);
-void prettify_textbox(char specifier[], void *var, int COLOR)
+/// EX. cp_textbox("%s", &myvariable);
+void cp_textbox(char *specifier, void *var)
 {
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
-    int returnColor = CUR_COLOR;
+    fflush(stdin);
 
-    if(&COLOR != NULL)
-        prettify_textcolor(COLOR);
-
-    printf("\n");
-
-    printf ("  _____________________________\n");
-    printf (" |                             |\n");
-    printf (" |_____________________________|\n");
+    printf ("\n  _____________________________");
+    printf ("\n |                             |");
+    printf ("\n |_____________________________|");
 
     if(strcmp(specifier, "%s") == 0)
-        printf ("             (text)             ");
+        printf ("\n                          [text]\n");
     else if (strcmp(specifier, "%c") == 0)
-        printf ("            (character)         ");
+        printf ("\n                     [character]\n");
     else
-        printf ("            (number)            ");
-
+        printf ("\n                        [number]\n");
 
     ///positioning the cursor inside the box
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 
-    coord.X = cursor.dwCursorPosition.X - 29;
-    coord.Y = cursor.dwCursorPosition.Y - 2;
+    coord.X = 4;
+    coord.Y = cursor.dwCursorPosition.Y - 3;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
     ///reading the variable
-    if(strcmp(specifier, "%s") != 0) //not a string
+    if (strcmp(specifier, "%s") != 0) //not a string
     {
-        scanf(specifier, var);
+        scanf (specifier, var);
     }
     else//is a string
     {
         gets(var);
     }
-
-    //return to previous text color
-    prettify_textcolor(returnColor);
 
     ///re-place the cursor outside the box
     coord.Y += 3;
@@ -89,35 +82,30 @@ void prettify_textbox(char specifier[], void *var, int COLOR)
 
 
 /// CREATE A NON CENTERED INPUT FIELD FOR PASSWORDS OR SECRET CODES
-/// EX. prettify_textbox_password(password, '*', BLUE);
-void prettify_textbox_password(char *var, char occluder, int COLOR)
+/// EX. cp_password(password);
+void cp_password(char *var)
 {
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
-    int returnColor = CUR_COLOR;
     char c, password[25] = "";
     int i = 0;
 
-    if(COLOR != NULL)
-        prettify_textcolor(COLOR);
-
-    printf("\n");
-
-    printf ("  _____________________________\n");
-    printf (" |                             |\n");
-    printf (" |_____________________________|\n");
-    printf ("             (text)             ");
+    printf ("\n  _____________________________");
+    printf ("\n |                             |");
+    printf ("\n |_____________________________|");
+    printf ("\n                          [text]\n");
 
     ///positioning the cursor inside the box
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 
-    coord.X = cursor.dwCursorPosition.X - 29;
-    coord.Y = cursor.dwCursorPosition.Y - 2;
+    coord.X = 4;
+    coord.Y = cursor.dwCursorPosition.Y - 3;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
     ///reading the password
     while((c = getch()) != '\r')//return or enter key
     {
+        fflush(stdin);
         if(c == '\b')//backspace pressed
         {
             ///manually remove perform backspace action
@@ -135,7 +123,7 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
             if((isalpha(c) != 0 || isdigit(c) == 1) && (c != 72 && c != 80 && c != 75 && c != 77))
             {
                 password[i] = c;
-                printf("%c",occluder);
+                printf("%c", '*');
                 i++;
             }
         }
@@ -144,9 +132,6 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
     password[i] = '\0';//end the string
     strcpy(var, password);
 
-    //return to previous text color
-    prettify_textcolor(returnColor);
-
     ///re-place the cursor outside the box
     coord.Y += 3;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -154,18 +139,19 @@ void prettify_textbox_password(char *var, char occluder, int COLOR)
 }
 
 //DISPLAYS A MENU AND RETURNS THE NUMBER OF THE SELECTED OPTION
-/// EX. prettify_menu("Select an option", RED, numOptions, "Buy banana","Buy apple","Buy mango");
-int prettify_menu(char *title, int COLOR, int numOptions, ...)
+/// EX. cp_menu("Select an option", 4, "Buy banana","Buy apple","Buy mango");
+int cp_menu(char *title, int numOptions, ...)
 {
-    int i, j, result;
-    int returnColor = CUR_COLOR;
+    int i, result;
     int maxLength = strlen(title);
+    //if its the 20th option thn, then digitsInOption will be 2
+    int digitsInOption;
     va_list args;
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+    fflush(stdin);
 
     va_start(args, numOptions);
-    prettify_textcolor(COLOR);
 
     //find the longest text to be displayed
     for (i = 0; i < numOptions; i++)
@@ -175,51 +161,34 @@ int prettify_menu(char *title, int COLOR, int numOptions, ...)
             maxLength = len;
     }
 
-    printf("\n  ");
-    for (i = 0; i < maxLength + 6; i++)
-        printf("_");
+    maxLength += 5;
+    repeatChar('_', " ", "\n ", maxLength + 2);
+    printf ("\n | %-*s |", maxLength, title);
+    repeatChar('-', "|", "\n ", maxLength + 2);
 
-    printf("\n | %s", title);
-    for (i = 0; i < maxLength - (strlen(title)- 5); i++)
-        printf(" ");
-
-    printf("|\n |");
-    for (i = 0; i < maxLength + 6; i++)
-        printf("-");
-    printf("|");
-
+    //list the options
     va_start(args, numOptions);
-    for (i = 0; i < numOptions; i++)
+    for (i = 1; i <= numOptions; i++)
     {
-        char *option = va_arg(args, char *);
+        digitsInOption = log10 (i) + 1;
+        char* option = va_arg(args, char *);
 
-        printf("\n | %i) %s", i+1, option);
-        for (j = 0; j < maxLength - (strlen(option)-2); j++)
-            printf(" ");
-        printf("|");
+        if (digitsInOption > 1)
+            printf("\n | %i) %-*s|", i, maxLength - digitsInOption-1 , option);
+        else
+            printf("\n | %i) %-*s|", i, maxLength -2 , option);
     }
 
-    printf("\n |");
-    for (i = 0; i < maxLength + 6; i++)
-        printf("_");
-    printf("|");
-
-    //text box
-    printf("\n | > ");
-    for (i = 0; i < maxLength + 3; i++)
-        printf(" ");
-
-    printf("|\n |");
-    for (i = 0; i < maxLength + 6; i++)
-        printf("_");
-    printf("|");
+    //textbox part
+    repeatChar('_', "|", "\n ", maxLength + 2);
+    printf("\n | >%*c|", maxLength, ' ');
+    repeatChar('_', "|", "\n ", maxLength + 2);
 
     va_end(args);
-    prettify_textcolor(returnColor);
 
     //put cursor inside box
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
-    coord.X = cursor.dwCursorPosition.X - (maxLength + 4);
+    coord.X = 5;
     coord.Y = cursor.dwCursorPosition.Y - 1;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
@@ -235,7 +204,6 @@ int prettify_menu(char *title, int COLOR, int numOptions, ...)
         return result;
     }
     else{
-        //prettify_textcolor(RED);
         printf("\n --> ERROR: INVALID OPTION\n Try again..");
         return 0;
     }
@@ -243,17 +211,10 @@ int prettify_menu(char *title, int COLOR, int numOptions, ...)
 
 
 //DISPLAYS AN ORDERED LIST
-/// EX. prettify_olist_i"Select an option", RED, items);
-void prettify_olist_i(char *heading, int COLOR, int items[])
+/// EX. cp_ilist("Select an option", items, 3);
+void cp_ilist(char *heading, int items[], int numItems)
 {
-    int i, j, numDigits, curNumDigits, numItems = 0;
-    int returnColor = CUR_COLOR;
-
-    prettify_textcolor(COLOR);
-
-    //get number of items (only works for ints)
-    while(items[numItems] != NULL)
-        numItems++;
+    int i, j, numDigits, curNumDigits;
 
     //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
     //Eg. If numItems = 200 then numDigits = 3
@@ -275,19 +236,14 @@ void prettify_olist_i(char *heading, int COLOR, int items[])
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("%s %i\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
-        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+        printf("| %i\n", items[i]); //print the current element of the list
     }
-
-    prettify_textcolor(returnColor);
 }
-/// EX. prettify_olist_f("Select an option", RED, items, 3);
-void prettify_olist_f(char *heading, int COLOR, float items[], int numItems)
+
+/// EX. cp_flist ("Select an option", items, 3);
+void cp_flist(char *heading, float items[], int numItems)
 {
     int i, j, numDigits, curNumDigits;
-    int returnColor = CUR_COLOR;
-
-    prettify_textcolor(COLOR);
 
     //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
     //Eg. If numItems = 200 then numDigits = 3
@@ -309,19 +265,14 @@ void prettify_olist_f(char *heading, int COLOR, float items[], int numItems)
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("%s %.2f\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
-        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+        printf("| %.2f\n", items[i]); //print the current element of the list
     }
-
-    prettify_textcolor(returnColor); //return to original color
 }
+
 /// EX. prettify_olist_d("Select an option", RED, items, 3);
-void prettify_olist_d(char *heading, int COLOR, double items[], int numItems)
+void cp_dlist(char *heading, double items[], int numItems)
 {
     int i, j, numDigits, curNumDigits;
-    int returnColor = CUR_COLOR;
-
-    prettify_textcolor(COLOR);
 
     //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
     //Eg. If numItems = 200 then numDigits = 3
@@ -343,19 +294,14 @@ void prettify_olist_d(char *heading, int COLOR, double items[], int numItems)
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("%s %lf\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
-        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+        printf("| %lf\n", items[i]); //print the current element of the list
     }
-
-    prettify_textcolor(returnColor); //return to original color
 }
+
 /// EX. prettify_olist_c("Select an option", RED, items, 3);
-void prettify_olist_c(char *heading, int COLOR, char items[], int numItems)
+void cp_clist(char *heading, char items[], int numItems)
 {
     int i, j, numDigits, curNumDigits;
-    int returnColor = CUR_COLOR;
-
-    prettify_textcolor(COLOR);
 
     //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
     //Eg. If numItems = 200 then numDigits = 3
@@ -377,19 +323,14 @@ void prettify_olist_c(char *heading, int COLOR, char items[], int numItems)
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("%s %c\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
-        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+        printf("| %c\n", items[i]); //print the current element of the list
     }
-
-    prettify_textcolor(returnColor); //return to original color
 }
+
 /// EX. prettify_olist_s("Select an option", RED, items, 3);
-void prettify_olist_s(char *heading, int COLOR, char items[][MAX_ARRAY_LENGTH], int numItems)
+void cp_slist(char *heading, char items[][MAX_ARRAY_LENGTH], int numItems)
 {
     int i, j, numDigits, curNumDigits;
-    int returnColor = CUR_COLOR;
-
-    prettify_textcolor(COLOR);
 
     //GET NUMBER OF DIGITS IN THE NUMBER OF ELEMENTS
     //Eg. If numItems = 200 then numDigits = 3
@@ -411,15 +352,12 @@ void prettify_olist_s(char *heading, int COLOR, char items[][MAX_ARRAY_LENGTH], 
         for(j = 0; j < numDigits-curNumDigits; j++)
             printf(" ");
 
-        printf("%s %s\n", OLIST_SEPARATOR, items[i]); //print the current element of the list
-        //change OLIST_SEPARATOR in ConsolePrettify.h to whatever separator you like
+        printf("| %s\n", items[i]); //print the current element of the list
     }
-
-    prettify_textcolor(returnColor); //return to original color
 }
 
 /// PRINTS A TABLE
-void prettify_table(char *heading, int COLOR, ...)
+void cp_table(char *heading, ...)
 {
     int i = 6;
     if (i == 6)
@@ -427,24 +365,34 @@ void prettify_table(char *heading, int COLOR, ...)
 }
 
 /// PRINT TEXT AT CENTER OF SCREEN
-void prettify_print(char str[], int COLOR)
+void cp_print(char *format, ...)
 {
+    va_list args;
     COORD centerPos;
     CONSOLE_SCREEN_BUFFER_INFO csbi; //contains information about the screen
     int screenWwidth;
-    int returnColor = CUR_COLOR;
 
-    prettify_textcolor(COLOR); //change the output color
+    va_start(args, format);
 
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     screenWwidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 
     /// cursor to center
-    centerPos.X = (screenWwidth - strlen(str)) / 2;
+    centerPos.X = (screenWwidth - strlen(format)) / 2;
     centerPos.Y = csbi.dwCursorPosition.Y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), centerPos);
     /// print
-    printf(str);
+    vprintf(format, args);
 
-    prettify_textcolor(returnColor);//return to original color
+    va_end (args);
+}
+
+void repeatChar (char ch, char* ends, char* prefix, int times)
+{
+    printf("%s%s", prefix, ends);
+
+    for (int i = 0; i < times; i++)
+        printf ("%c", ch);
+
+    printf("%s", ends);
 }

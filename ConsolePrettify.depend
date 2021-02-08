@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1606025568 source:c:\users\corne\documents\c_projects\consoleprettify\prettify_functions.c
+1612746085 source:c:\users\corne\documents\c_projects\consoleprettify\prettify_functions.c
 	"ConsolePrettify.h"
 
-1607484664 c:\users\corne\documents\c_projects\consoleprettify\consoleprettify.h
+1612745298 c:\users\corne\documents\c_projects\consoleprettify\consoleprettify.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -18,9 +18,10 @@
 	<stdbool.h>
 	"CYPHER.H"
 
-1607484481 source:c:\users\corne\documents\c_projects\consoleprettify\main.c
+1612753080 source:c:\users\corne\documents\c_projects\consoleprettify\main.c
 	<stdio.h>
 	<stdlib.h>
+	<math.h>
 	"ConsolePrettify.h"
 
 1601352266 source:c:\users\corne\documents\c_projects\consoleprettify\prettify_extras.c

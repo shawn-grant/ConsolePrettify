@@ -12,18 +12,24 @@ Make sure the new files are correctly linked in your IDE/compiler.
 
 Function | Description
 --- | --- 
-`void prettify_textcolor(color)` | Changes the text color
-`void prettify_print(text, color)` | Prints text at the screen center
-`void prettify_textbox(specifier, variable, color)` | Displays an input field and reads user input
-`void prettify_textbox_password(variable, mask, color)` | Displays an input field with masking eg. *****
-`int prettify_menu(title, color, numOptions, ...)` | Displays a menu and returns the number of the selected option
-`void prettify_olist_i(title, color, items)` | Displays an ordered list of integers
-`void prettify_olist_f(title, color, items)` | Displays an ordered list of floats
-`void prettify_olist_c(title, color, items)` | Displays an ordered list of characters
-`void prettify_olist_s(title, color, items)` | Displays an ordered list of strings
+_text_
+`cp_textcolor(color)` | Changes the text color
+`cp_print(format, args)` | Exactly like printf, but text is centered
+_input_
+`cp_textbox(specifier, variable)` | Like scanf with a input box
+`cp_password(variable)` | string input box with masking eg. *****
+_selection_
+`cp_menu(title, numOptions, ...)` | Displays a menu and returns the number of the selected option
+_lists_
+`cp_ilist(title, items, numItems)` | Displays an ordered list of integers
+`cp_flist(title, items, numItems)` | Displays an ordered list of floats
+`cp_clist(title, items, numItems)` | Displays an ordered list of characters
+`cp_slist(title, items, numItems)` | Displays an ordered list of strings
 
 ---
-> _**NOTE**: Please use `prettify_textcolor()` for all colored text in your program._.
+> _**NOTE**: Please use `cp_textcolor()` instaed of system("color xx")._ 
+
+> _**NOTE**: `cp_textbox()` accepts ONE variable. Do not use multiple specifiers_
 
 <br>
 
@@ -46,42 +52,41 @@ DARK_GRAY | 8
 <br>
 
 # Examples
-## Textboxes:
+### Text & input:
 
 ```c
-int num;
-char password[25];
+char testString[25];
+cp_textcolor (GREEN); //change color
 
-printf("THIS IS A TEXTBOX");
-prettify_textbox("%i", &num, YELLOW);
+printf (" Enter your username");
+cp_textbox ("%s", testString);
 
-printf("\nTHIS IS A PASSWORD TEXTBOX");
-prettify_textbox_password(password, '+', BLUE);
+printf ("\n Enter your password:");
+cp_password (testString);
 ```
->![Output](images/output1.PNG)
+>![Output](images/output1.gif)
 
 
 ## Menus
 ```c
-int choice = prettify_menu("Select an option", RED, 4,
+int choice = prettify_menu("Select an option", 4,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes");
 ```
->![Output](images/output2.PNG)
+>![Output](images/output2.gif)
 
 
 ### Lists
 ```c
-char **people = {"Justin", "Kim", "Susan"};
-prettify_list_ordered("List of People", GREEN, people);
+float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
+cp_flist ("List of numbers", items, 10);
 ```
->![Output](images/output3.PNG)
+>![Output](images/output3.gif)
 
 ## TODO
 - Add automatic Table printing
-- Print to center
 
 ## License
 ---

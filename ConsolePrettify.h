@@ -58,29 +58,24 @@ typedef struct {
 }TableColumn;
 
 //input
-void prettify_textcolor(int);
-void prettify_textbox(char [], void *, int);
-void prettify_textbox_password(char *, char, int);
-void prettify_textbox_large(char [], void *, int);
-
-void prettify_textbox_centered(char [], void *, int);
-void prettify_textbox_password_centered(char [], void *, int);
-void prettify_textbox_large_centered(char [], void *, int);
+void cp_textcolor(int);
+void cp_textbox(char *, void *);
+void cp_password(char *);
 
 //text
-void prettify_print(char[], int);
+void cp_print(char *, ...);
 
 //table
-void prettify_table(char *, int, ...);
+void cp_table(char *, ...);
 
 //menu
-int prettify_menu(char *, int, int, ...);
+int cp_menu(char *, int, ...);
 
 //ordered lists
-void prettify_olist_i(char *, int, int[]);
-void prettify_olist_f(char *, int, float[], int);
-void prettify_olist_d(char *, int, double[], int);
-void prettify_olist_c(char *, int, char[], int);
-void prettify_olist_s(char *, int, char[][MAX_ARRAY_LENGTH], int);
+void cp_ilist(char *, int[], int);
+void cp_flist(char *, float[], int);
+void cp_dlist(char *, double[], int);
+void cp_clist(char *, char[], int);
+void cp_slist(char *, char[][MAX_ARRAY_LENGTH], int);
 
 #endif // CONSOLEPRETTIFY_H_INCLUDED
