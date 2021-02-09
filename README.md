@@ -20,6 +20,7 @@ _input_
 `cp_password(variable)` | string input box with masking eg. *****
 _selection_
 `cp_menu(title, numOptions, ...)` | Displays a menu and returns the number of the selected option
+`cp_menu2(title, numOptions, ...)` | cp_menu but uses arrow keys for selection
 _lists_
 `cp_ilist(title, items, numItems)` | Displays an ordered list of integers
 `cp_flist(title, items, numItems)` | Displays an ordered list of floats
@@ -27,15 +28,17 @@ _lists_
 `cp_slist(title, items, numItems)` | Displays an ordered list of strings
 
 ---
-> _**NOTE**: Please use `cp_textcolor()` instaed of system("color xx")._ 
+> _**NOTE**: Please use `cp_textcolor()` instaed of system("color xx")_
 
 > _**NOTE**: `cp_textbox()` accepts ONE variable. Do not use multiple specifiers_
+
+> _**NOTE**: Using newlines(\n) in `cp_menu`, `cp_menu2`, or `cp_print` will mess up the formatting_
 
 <br>
 
 ## Available Colors 🌈
-use any of these constants as the color arguments of prettify functions
-Constant Name | Value
+use any of these constants as the color argument of `cp_textcolor()`
+Constant Name | _
 --- | --- 
 RED | 12
 GREEN |  10
@@ -48,6 +51,8 @@ WHITE | 15
 CYAN | 3
 GRAY | 7
 DARK_GRAY | 8
+
+Example: `cp_textcolor (BLUE);`
 
 <br>
 
@@ -69,11 +74,19 @@ cp_password (testString);
 
 ## Menus
 ```c
+//normal menu
 int choice = cp_menu("Select an option", 4,
                   "Buy bananas",
                   "Buy apple",
                   "Buy mango",
                   "Buy grapes");
+//arrow key selection menu
+choice = cp_menu2("Select an option", 5,
+                  "Buy bananas",
+                  "Buy apple",
+                  "Buy mango",
+                  "Buy grapes",
+                  "Buy Bananas");
 ```
 ![Output](images/output2.gif)
 
@@ -83,7 +96,7 @@ int choice = cp_menu("Select an option", 4,
 float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};
 cp_flist ("List of numbers", items, 10);
 ```
->![Output](images/output3.gif)
+![Output](images/output3.gif)
 
 ## TODO
 - Add automatic Table printing

@@ -14,22 +14,23 @@ int main()
     char testString[25];
 
     cp_textcolor (GREEN); //change color
-    //cp_print("\b HELLO TO %s\n", "CONSOLE PRETTIFY");
+    cp_print("\b HELLO TO %s", "CONSOLE PRETTIFY");
+
+    cp_menu2("Select an option", 5,
+                  "Buy bananas",
+                  "Buy apple",
+                  "Buy mango",
+                  "Buy grapes",
+                  "Buy Bananas");
+
+    cp_textcolor(BLUE);
+
 
     printf (" Enter your username");
     cp_textbox ("%s", testString);
 
     printf (" Enter your password:");
     cp_password (testString);
-
-    system("cls");
-
-    /////////////////////////////////
-    int choice = cp_menu("Select an option", 4,
-                  "Buy bananas",
-                  "Buy apple",
-                  "Buy mango",
-                  "Buy grapes");
 
     ////////////////////////////////
     /*float items[20] = {200, 10, 80, 900, 20, 10, 80, 900, 209, 50};

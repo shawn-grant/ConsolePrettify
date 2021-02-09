@@ -70,6 +70,7 @@ void cp_table(char *, ...);
 
 //menu
 int cp_menu(char *, int, ...);
+int cp_menu2(char *, int, ...);
 
 //ordered lists
 void cp_ilist(char *, int[], int);
@@ -77,5 +78,7 @@ void cp_flist(char *, float[], int);
 void cp_dlist(char *, double[], int);
 void cp_clist(char *, char[], int);
 void cp_slist(char *, char[][MAX_ARRAY_LENGTH], int);
+
+void repeatChar (char ch, char* ends, char* prefix, int times);
 
 #endif // CONSOLEPRETTIFY_H_INCLUDED
