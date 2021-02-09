@@ -28,10 +28,6 @@ void error(char function[25], char msg[100])
     exit(EXIT_FAILURE);
 }
 
-void cp_setCentered(int isCentered)
-{
-
-}
 
 // CHANGES TEXT COLOR
 void cp_textcolor(int COLOR){
@@ -209,6 +205,90 @@ int cp_menu(char *title, int numOptions, ...)
     }
 }
 
+int cp_menu2(char *title, int numOptions, ...)
+{
+    int i, position;
+    int maxLength = strlen(title);
+    //if its the 20th option thn, then digitsInOption will be 2
+    char key;
+    va_list args;
+    COORD coord;//where to put the cursor
+    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+
+    fflush(stdin);
+
+    va_start(args, numOptions);
+
+    if (strlen("Use arrow keys") > maxLength)
+        maxLength = strlen("Use arrow keys");
+
+    //find the longest text to be displayed
+    for (i = 0; i < numOptions; i++)
+    {
+        int len = strlen(va_arg(args, char *));
+        if(len > maxLength)
+            maxLength = len;
+    }
+
+    maxLength += 5;
+    repeatChar('_', " ", "\n ", maxLength + 2);
+    printf ("\n | %-*s |", maxLength, title);
+    repeatChar('-', "|", "\n ", maxLength + 2);
+
+    //list the options
+    va_start(args, numOptions);
+    for (i = 1; i <= numOptions; i++)
+    {
+        char* option = va_arg(args, char *);
+        printf("\n |   %-*s|", maxLength -1 , option);
+    }
+
+    va_end(args);
+
+    //textbox part
+    repeatChar('_', "|", "\n ", maxLength + 2);
+    printf("\n | %-*s|", maxLength+1, "Use arrow keys");
+    repeatChar('_', "|", "\n ", maxLength + 2);
+
+    //move cursor to first option
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+    coord.X = 3;
+    coord.Y = cursor.dwCursorPosition.Y - numOptions - 2;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+    position = 1;
+    while ((key = getch()) != '\r'){
+
+        if (key == 72) //up arrow
+        {
+            if (position != 1)
+            {
+                position--;
+                //move the cursor to the correct option
+                coord.Y --;
+                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            }
+        }
+        else if (key == 80) //down arrow
+        {
+            if (position != numOptions)
+            {
+                position++;
+                coord.Y ++;
+                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            }
+        }
+    }
+
+    ///re-place the cursor outside the box
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor); //get the cursor
+    coord.X = 0;
+    coord.Y = cursor.dwCursorPosition.Y + (numOptions - position) + 5;
+
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+    return position;
+}
 
 //DISPLAYS AN ORDERED LIST
 /// EX. cp_ilist("Select an option", items, 3);
@@ -381,6 +461,7 @@ void cp_print(char *format, ...)
     centerPos.X = (screenWwidth - strlen(format)) / 2;
     centerPos.Y = csbi.dwCursorPosition.Y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), centerPos);
+
     /// print
     vprintf(format, args);
 
