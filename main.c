@@ -25,7 +25,6 @@ int main()
 
     cp_textcolor(BLUE);
 
-
     printf (" Enter your username");
     cp_textbox ("%s", testString);
 
